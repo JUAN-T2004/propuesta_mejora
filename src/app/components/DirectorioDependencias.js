@@ -1,55 +1,512 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 
-const opcionesOrganigrama = [
+const estructuraOrganica = [
   {
-    nombre: "Despacho del Gobernador",
-    nivelJerarquico: "Nivel directivo",
-    competencia: "Direccion estrategica",
-    impacto: "Muy alto",
-    descripcion:
-      "Instancia superior de direccion del departamento, responsable de orientar la gestion institucional y articular las decisiones de gobierno.",
+    nombre: "Gerencia de Auditoria Interna",
+    tipo: "Gerencia",
   },
   {
-    nombre: "Secretarias departamentales",
-    nivelJerarquico: "Nivel central",
-    competencia: "Misional y administrativa",
-    impacto: "Alto",
-    descripcion:
-      "Dependencias encargadas de liderar politicas publicas, programas y servicios sectoriales de la administracion departamental.",
+    nombre: "Gerencia de Control Interno Disciplinario",
+    tipo: "Gerencia",
   },
   {
-    nombre: "Departamentos administrativos",
-    nivelJerarquico: "Nivel central",
-    competencia: "Planeacion y soporte institucional",
-    impacto: "Alto",
-    descripcion:
-      "Unidades que orientan procesos transversales, tecnicos y administrativos necesarios para la gestion del departamento.",
+    nombre: "Departamento Administrativo de Gestion del Riesgo de Desastres - Dagran",
+    tipo: "Departamento administrativo",
+    dependencias: [
+      {
+        nombre: "Direccion de Conocimiento y Reduccion del Riesgo",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Manejo de Desastres",
+        tipo: "Direccion",
+      },
+    ],
   },
   {
-    nombre: "Gerencias",
-    nivelJerarquico: "Nivel directivo",
-    competencia: "Gestion estrategica",
-    impacto: "Medio alto",
-    descripcion:
-      "Equipos responsables de coordinar asuntos, proyectos o poblaciones priorizadas dentro de la estructura organica departamental.",
+    nombre: "Departamento Administrativo de Planeacion",
+    tipo: "Departamento administrativo",
+    dependencias: [
+      {
+        nombre: "Gerencia de Catastro",
+        tipo: "Gerencia",
+      },
+      {
+        nombre: "Direccion de Informacion y Estudios Economicos",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Gestion Territorial de las Tic",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Planeacion Territorial",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Proyectos e Inversion Publica",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Seguimiento y Evaluacion de la Gestion y Politicas Publicas",
+        tipo: "Direccion",
+      },
+    ],
   },
   {
-    nombre: "Oficinas asesoras",
-    nivelJerarquico: "Nivel asesor",
-    competencia: "Asesoria y control",
-    impacto: "Medio",
-    descripcion:
-      "Dependencias que prestan apoyo especializado para la toma de decisiones, el seguimiento y la mejora institucional.",
+    nombre: "Oficina Privada",
+    tipo: "Oficina",
+    dependencias: [
+      {
+        nombre: "Gerencia de Proyectos Especiales",
+        tipo: "Gerencia",
+        direcciones: [
+          {
+            nombre: "Direccion de Gestion de Proyectos",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion del Conglomerado",
+            tipo: "Direccion",
+          },
+        ],
+      },
+      {
+        nombre: "Unidad de Programas Sociales",
+        tipo: "Unidad",
+        direcciones: [
+          {
+            nombre: "Direccion de Infancia, Adolescencia y Familia",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Seguridad Alimentaria y Nutricional",
+            tipo: "Direccion",
+          },
+        ],
+      },
+      {
+        nombre: "Gerencia de Relacionamiento",
+        tipo: "Gerencia",
+        direcciones: [
+          {
+            nombre: "Direccion de Cooperacion e Internacionalizacion",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Comunicaciones",
+            tipo: "Direccion",
+          },
+        ],
+      },
+    ],
   },
   {
-    nombre: "Entidades descentralizadas",
-    nivelJerarquico: "Sector descentralizado",
-    competencia: "Ejecucion especializada",
-    impacto: "Alto",
-    descripcion:
-      "Entidades vinculadas o adscritas que ejecutan funciones especializadas en sectores definidos de la administracion publica.",
+    nombre: "Secretaria de Ambiente",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Direccion de Agua y Saneamiento",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Electrificacion",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Recursos Naturales",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Sostenibilidad Ambiental y Cambio Climatico",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Gerencia de Proteccion y Bienestar Animal",
+        tipo: "Gerencia",
+      },
+    ],
+  },
+  {
+    nombre: "Secretaria de Desarrollo Economico",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Direccion de Productividad y Competitividad",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Turismo",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Desarrollo Rural",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion Minero Energetica",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Planificacion y Comercializacion Agropecuaria",
+        tipo: "Direccion",
+      },
+    ],
+  },
+  {
+    nombre: "Secretaria de Educacion",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Direccion de Asuntos Legales - Educacion",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Inspeccion Vigilancia y Control del Servicio Educativo",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Subsecretaria Administrativa y Financiera",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion Financiera",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Talento Humano",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Nomina y Prestaciones Sociales",
+            tipo: "Direccion",
+          },
+        ],
+      },
+      {
+        nombre: "Subsecretaria de Calidad Educativa",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion de Infraestructura Fisica y Tecnologica",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion Permanencia Escolar e Inclusion Educativa",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Calidad y Trayectorias Educativas",
+            tipo: "Direccion",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    nombre: "Secretaria de Gobierno",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Direccion de Asuntos Institucionales",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Participacion Comunitaria y Ciudadana",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Gerencia Afrodescendientes",
+        tipo: "Gerencia",
+      },
+      {
+        nombre: "Gerencia de Municipios",
+        tipo: "Gerencia",
+      },
+      {
+        nombre: "Gerencia Indigena",
+        tipo: "Gerencia",
+      },
+    ],
+  },
+  {
+    nombre: "Secretaria de Hacienda",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Subsecretaria Financiera",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion de Contabilidad",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Presupuesto",
+            tipo: "Direccion",
+          },
+        ],
+      },
+      {
+        nombre: "Subsecretaria de Ingresos",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion de Fiscalizacion y Control",
+            tipo: "Direccion",
+          },
+        ],
+      },
+      {
+        nombre: "Subsecretaria de Tesoreria",
+        tipo: "Subsecretaria",
+      },
+    ],
+  },
+  {
+    nombre: "Secretaria de Infraestructura Fisica",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Direccion Administrativa y Financiera - Infraestructura Fisica",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Asuntos Legales - Infraestructura Fisica",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Subsecretaria Operativa de Infraestructura Fisica",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion Desarrollo Fisico",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Gestion Social, Ambiental y Predial",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Infraestructura y Apoyo Territorial",
+            tipo: "Direccion",
+          },
+        ],
+      },
+      {
+        nombre: "Subsecretaria de Planeacion, Proyectos Estrategicos y Apps",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion de Estructuracion de Proyectos",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Instrumentos de Financiacion",
+            tipo: "Direccion",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    nombre: "Secretaria de la Juventud",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Direccion de Transversalizacion",
+        tipo: "Direccion",
+      },
+    ],
+  },
+  {
+    nombre: "Secretaria de las Mujeres",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Direccion Desarrollo y Autonomia Economica",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Transversalizacion",
+        tipo: "Direccion",
+      },
+    ],
+  },
+  {
+    nombre: "Secretaria de Salud e Inclusion Social",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Direccion Administrativa y Financiera - Salud",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Direccion de Asuntos Legales - Salud",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Subsecretaria de Salud Publica",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion Laboratorio Departamental de Salud Publica",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Salud Ambiental y Factores de Riesgo",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Salud Colectiva",
+            tipo: "Direccion",
+          },
+        ],
+      },
+      {
+        nombre: "Subsecretaria de Proteccion Social",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion de Aseguramiento y Prestacion de Servicios",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Calidad y Redes de Servicios",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Personas con Discapacidad",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Personas Mayores",
+            tipo: "Direccion",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    nombre: "Secretaria de Seguridad, Justicia y Paz",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Gerencia de Seguridad Vial",
+        tipo: "Gerencia",
+      },
+      {
+        nombre: "Subsecretaria de Paz y Derechos Humanos",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion de Derechos Humanos y Paz",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion Operativa de Seguridad",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Acceso a la Justicia",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Planeacion y Administracion de la Seguridad",
+            tipo: "Direccion",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    nombre: "Secretaria de Talento Humano y Servicios Administrativos",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Direccion de Gestion Documental",
+        tipo: "Direccion",
+      },
+      {
+        nombre: "Subsecretaria de Talento Humano",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion de Compensacion y Sistema Pensional",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Desarrollo del Talento Humano",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Desarrollo Organizacional",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Personal",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Relacion Estado Ciudadano",
+            tipo: "Direccion",
+          },
+        ],
+      },
+      {
+        nombre: "Subsecretaria de Servicios Administrativos",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion de Tecnologia e Informacion",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Servicios Generales",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Bienes y Seguros",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Pasaportes",
+            tipo: "Direccion",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    nombre: "Secretaria General",
+    tipo: "Secretaria",
+    dependencias: [
+      {
+        nombre: "Subsecretaria Juridica",
+        tipo: "Subsecretaria",
+        direcciones: [
+          {
+            nombre: "Direccion de Defensa Juridica",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Asesoria Legal y de Control",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion Contractual",
+            tipo: "Direccion",
+          },
+          {
+            nombre: "Direccion de Instruccion Disciplinaria",
+            tipo: "Direccion",
+          },
+        ],
+      },
+    ],
   },
 ];
 
@@ -81,19 +538,227 @@ const funciones = [
   "Actividad clave que evidencia su aporte dentro de la estructura organica departamental.",
 ];
 
+const creadoresProvisionales = [
+  {
+    nombre: "Nombre del practicante 1",
+    rol: "Practicante",
+    detalle: "Informacion provisional del creador.",
+  },
+  {
+    nombre: "Nombre del practicante 2",
+    rol: "Practicante",
+    detalle: "Informacion provisional del creador.",
+  },
+  {
+    nombre: "Nombre del practicante 3",
+    rol: "Practicante",
+    detalle: "Informacion provisional del creador.",
+  },
+  {
+    nombre: "Nombre del practicante 4",
+    rol: "Practicante",
+    detalle: "Informacion provisional del creador.",
+  },
+];
+
+function crearDependencia(nodo, padre) {
+  return {
+    ...baseDependencia,
+    nombre: nodo.nombre,
+    nivelJerarquico: nodo.tipo,
+    competencia: padre ? `Adscripcion: ${padre.nombre}` : "Dependencia principal",
+    impacto:
+      nodo.tipo === "Secretaria" || nodo.tipo === "Departamento administrativo"
+        ? "Alto"
+        : "Medio alto",
+    descripcion: padre
+      ? `${nodo.tipo} adscrita a ${padre.nombre}.`
+      : `${nodo.tipo} de la estructura organica departamental.`,
+  };
+}
+
+function obtenerHijos(nodo) {
+  return nodo.dependencias || nodo.direcciones || [];
+}
+
+function etiquetaHijos(nodo) {
+  if (nodo.direcciones) {
+    return "Ver direcciones";
+  }
+
+  if (nodo.dependencias) {
+    return "Ver dependencias";
+  }
+
+  return "";
+}
+
+function MarcaGobernacion() {
+  return (
+    <div className="flex items-center gap-6">
+      <Image
+        alt="Gobernacion de Antioquia, Republica de Colombia"
+        className="h-24 w-auto object-contain"
+        height={130}
+        src="/logo-gobernacion.png"
+        width={400}
+      />
+      <div className="hidden sm:block">
+        <p className="text-base font-bold uppercase tracking-[0.2em] text-[#176b36]">
+          Estructura Organica Departamental
+        </p>
+        <h1 className="mt-1 text-2xl font-bold text-[#17231c]">
+          Directorio institucional
+        </h1>
+      </div>
+    </div>
+  );
+}
+
+function MenuSuperior() {
+  const [menuAbierto, setMenuAbierto] = useState(false);
+  const [modalActivo, setModalActivo] = useState(null);
+
+  function abrirModal(tipo) {
+    setMenuAbierto(false);
+    setModalActivo(tipo);
+  }
+
+  return (
+    <div className="fixed left-4 top-4 z-40">
+      <button
+        aria-expanded={menuAbierto}
+        aria-label="Abrir menu"
+        className="flex h-11 w-11 items-center justify-center rounded-md border border-[#d8dfd5] bg-white shadow-sm transition hover:border-[#2f7d46] hover:bg-[#edf7ef] focus:outline-none focus:ring-2 focus:ring-[#2f7d46] focus:ring-offset-2"
+        onClick={() => setMenuAbierto((abierto) => !abierto)}
+        type="button"
+      >
+        <span className="flex flex-col gap-1.5" aria-hidden="true">
+          <span className="block h-0.5 w-5 rounded-full bg-[#17231c]" />
+          <span className="block h-0.5 w-5 rounded-full bg-[#17231c]" />
+          <span className="block h-0.5 w-5 rounded-full bg-[#17231c]" />
+        </span>
+      </button>
+
+      {menuAbierto ? (
+        <div className="absolute left-0 mt-3 w-52 rounded-lg border border-[#d8dfd5] bg-white p-2 shadow-lg">
+          <button
+            className="w-full rounded-md px-4 py-3 text-left text-sm font-semibold text-[#17231c] transition hover:bg-[#edf7ef] hover:text-[#246b37]"
+            onClick={() => abrirModal("creadores")}
+            type="button"
+          >
+            Creadores
+          </button>
+          <button
+            className="w-full rounded-md px-4 py-3 text-left text-sm font-semibold text-[#17231c] transition hover:bg-[#edf7ef] hover:text-[#246b37]"
+            onClick={() => abrirModal("informacion")}
+            type="button"
+          >
+            Informacion
+          </button>
+        </div>
+      ) : null}
+
+      {modalActivo ? (
+        <ModalMenu
+          tipo={modalActivo}
+          onCerrar={() => setModalActivo(null)}
+        />
+      ) : null}
+    </div>
+  );
+}
+
+function ModalMenu({ tipo, onCerrar }) {
+  const esCreadores = tipo === "creadores";
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 px-4 py-6">
+      <section className="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-lg bg-white shadow-2xl">
+        <div className="flex items-start justify-between gap-4 border-b border-[#d8dfd5] px-6 py-5">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#2f7d46]">
+              {esCreadores ? "Equipo" : "Acerca de esta pagina"}
+            </p>
+            <h2 className="mt-2 text-2xl font-bold">
+              {esCreadores ? "Creadores" : "Informacion"}
+            </h2>
+          </div>
+          <button
+            className="rounded-md border border-[#d8dfd5] px-3 py-2 text-sm font-semibold text-[#405348] transition hover:border-[#2f7d46] hover:text-[#2f7d46]"
+            onClick={onCerrar}
+            type="button"
+          >
+            Cerrar
+          </button>
+        </div>
+
+        <div className="px-6 py-6">
+          {esCreadores ? (
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {creadoresProvisionales.map((creador) => (
+                <article
+                  className="rounded-lg border border-[#d8dfd5] bg-[#f8fbf7] p-5"
+                  key={creador.nombre}
+                >
+                  <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#2f7d46]">
+                    {creador.rol}
+                  </p>
+                  <h3 className="mt-3 text-lg font-bold leading-6">
+                    {creador.nombre}
+                  </h3>
+                  <p className="mt-3 text-sm leading-6 text-[#52645a]">
+                    {creador.detalle}
+                  </p>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p className="max-w-3xl text-lg leading-8 text-[#405348]">
+              Esta pagina es una pagina desarrollada por practicantes de la
+              Gobernacion de Antioquia como propuesta de mejora.
+            </p>
+          )}
+        </div>
+      </section>
+    </div>
+  );
+}
+
 export default function DirectorioDependencias() {
   const [opcionActiva, setOpcionActiva] = useState(null);
+  const [modalActivo, setModalActivo] = useState(null);
+  const [listaActiva, setListaActiva] = useState(null);
 
   const dependencia = useMemo(() => {
     if (!opcionActiva) {
       return null;
     }
 
-    return {
-      ...baseDependencia,
-      ...opcionActiva,
-    };
+    return crearDependencia(opcionActiva.nodo, opcionActiva.padre);
   }, [opcionActiva]);
+
+  function abrirOpciones(nodo, padre = null) {
+    const hijos = obtenerHijos(nodo);
+
+    if (hijos.length === 0) {
+      setOpcionActiva({ nodo, padre });
+      return;
+    }
+
+    setListaActiva(null);
+    setModalActivo({ nodo, padre });
+  }
+
+  function verInformacion(nodo, padre = null) {
+    setModalActivo(null);
+    setListaActiva(null);
+    setOpcionActiva({ nodo, padre });
+  }
+
+  function verHijos(nodo, padre = null) {
+    setListaActiva({ nodo, padre, hijos: obtenerHijos(nodo) });
+  }
 
   if (dependencia) {
     return (
@@ -104,72 +769,194 @@ export default function DirectorioDependencias() {
     );
   }
 
-  return <VistaOrganigrama onSeleccionar={setOpcionActiva} />;
+  return (
+    <VistaOrganigrama
+      listaActiva={listaActiva}
+      modalActivo={modalActivo}
+      onAbrirOpciones={abrirOpciones}
+      onCerrarModal={() => {
+        setModalActivo(null);
+        setListaActiva(null);
+      }}
+      onVerHijos={verHijos}
+      onVerInformacion={verInformacion}
+    />
+  );
 }
 
-function VistaOrganigrama({ onSeleccionar }) {
+function VistaOrganigrama({
+  listaActiva,
+  modalActivo,
+  onAbrirOpciones,
+  onCerrarModal,
+  onVerHijos,
+  onVerInformacion,
+}) {
   return (
     <main className="min-h-screen bg-[#f6f8f4] text-[#17231c]">
       <header className="border-b border-[#d8dfd5] bg-white">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#2f7d46]">
-              Gobernacion de Antioquia
-            </p>
-            <h1 className="text-xl font-bold">
-              Estructura Organica Departamental
-            </h1>
-          </div>
+        <nav className="relative mx-auto flex max-w-6xl items-center justify-center px-6 py-5">
+          <MenuSuperior />
+          <MarcaGobernacion />
         </nav>
       </header>
 
       <section className="mx-auto max-w-6xl px-6 py-10">
-        <div className="max-w-3xl">
+        <div className="mx-auto max-w-4xl text-center">
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f7d46]">
-            Organigrama institucional
+            Vista principal
           </p>
           <h2 className="mt-3 text-4xl font-bold leading-tight md:text-5xl">
-            Selecciona una dependencia para ver su ficha
+            Selecciona una secretaria u organismo principal
           </h2>
-          <p className="mt-4 max-w-2xl leading-7 text-[#52645a]">
-            Cada opcion abre la vista informativa de la dependencia con los
-            datos generales, funciones, normativa y canales de contacto.
+          <p className="mx-auto mt-4 max-w-2xl leading-7 text-[#52645a]">
+            Primero eliges el organismo principal. Luego puedes ver su ficha o
+            navegar por las dependencias y direcciones que se desprenden de el.
           </p>
         </div>
 
-        <div className="mt-10">
-          <div className="mx-auto w-full max-w-md rounded-lg border border-[#2f7d46] bg-white px-6 py-5 text-center shadow-sm">
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#2f7d46]">
-              Nivel superior
-            </p>
-            <h3 className="mt-2 text-2xl font-bold">Gobernador de Antioquia</h3>
-          </div>
+        <div className="mt-8 flex flex-wrap justify-center gap-3 text-sm font-semibold text-[#2f7d46]">
+          <span className="rounded-full bg-white px-4 py-2 shadow-sm">
+            {estructuraOrganica.length} organismos principales
+          </span>
+          <span className="rounded-full bg-white px-4 py-2 shadow-sm">
+            Navegacion por niveles
+          </span>
+        </div>
 
-          <div className="mx-auto h-10 w-px bg-[#9caf99]" />
-
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {opcionesOrganigrama.map((opcion) => (
-              <button
-                className="min-h-40 rounded-lg border border-[#d2ddce] bg-white p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-[#2f7d46] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2f7d46] focus:ring-offset-2"
-                key={opcion.nombre}
-                onClick={() => onSeleccionar(opcion)}
-                type="button"
-              >
-                <span className="text-xs font-semibold uppercase tracking-[0.16em] text-[#2f7d46]">
-                  {opcion.nivelJerarquico}
+        <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {estructuraOrganica.map((nodo) => (
+            <button
+              className="min-h-32 rounded-lg border border-[#d8dfd5] bg-white p-5 text-left shadow-sm transition hover:-translate-y-1 hover:border-[#2f7d46] hover:shadow-md focus:outline-none focus:ring-2 focus:ring-[#2f7d46] focus:ring-offset-2"
+              key={nodo.nombre}
+              onClick={() => onAbrirOpciones(nodo)}
+              type="button"
+            >
+              <span className="text-xs font-semibold uppercase tracking-[0.14em] text-[#2f7d46]">
+                {nodo.tipo}
+              </span>
+              <span className="mt-3 block text-xl font-bold leading-6">
+                {nodo.nombre}
+              </span>
+              {obtenerHijos(nodo).length > 0 ? (
+                <span className="mt-3 block text-sm text-[#52645a]">
+                  {obtenerHijos(nodo).length} dependencias vinculadas
                 </span>
-                <span className="mt-3 block text-xl font-bold">
-                  {opcion.nombre}
+              ) : (
+                <span className="mt-3 block text-sm text-[#52645a]">
+                  Consulta directa de informacion
                 </span>
-                <span className="mt-3 block text-sm leading-6 text-[#52645a]">
-                  {opcion.descripcion}
-                </span>
-              </button>
-            ))}
-          </div>
+              )}
+            </button>
+          ))}
         </div>
       </section>
+
+      {modalActivo ? (
+        <ModalOpciones
+          listaActiva={listaActiva}
+          modalActivo={modalActivo}
+          onAbrirOpciones={onAbrirOpciones}
+          onCerrar={onCerrarModal}
+          onVerHijos={onVerHijos}
+          onVerInformacion={onVerInformacion}
+        />
+      ) : null}
     </main>
+  );
+}
+
+function ModalOpciones({
+  listaActiva,
+  modalActivo,
+  onAbrirOpciones,
+  onCerrar,
+  onVerHijos,
+  onVerInformacion,
+}) {
+  const { nodo, padre } = modalActivo;
+  const hijos = obtenerHijos(nodo);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 px-4 py-6">
+      <section className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-lg bg-white shadow-2xl">
+        <div className="border-b border-[#d8dfd5] px-6 py-5">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#2f7d46]">
+                {nodo.tipo}
+              </p>
+              <h2 className="mt-2 text-2xl font-bold leading-8">
+                {nodo.nombre}
+              </h2>
+              {padre ? (
+                <p className="mt-2 text-sm text-[#52645a]">
+                  Adscrita a {padre.nombre}
+                </p>
+              ) : null}
+            </div>
+            <button
+              className="rounded-md border border-[#d8dfd5] px-3 py-2 text-sm font-semibold text-[#405348] transition hover:border-[#2f7d46] hover:text-[#2f7d46]"
+              onClick={onCerrar}
+              type="button"
+            >
+              Cerrar
+            </button>
+          </div>
+        </div>
+
+        <div className="grid gap-3 px-6 py-5 sm:grid-cols-2">
+          <button
+            className="rounded-md bg-[#246b37] px-5 py-4 text-left text-sm font-semibold text-white transition hover:bg-[#1d572d]"
+            onClick={() => onVerInformacion(nodo, padre)}
+            type="button"
+          >
+            Ver informacion
+          </button>
+          {hijos.length > 0 ? (
+            <button
+              className="rounded-md border border-[#246b37] px-5 py-4 text-left text-sm font-semibold text-[#246b37] transition hover:bg-[#edf7ef]"
+              onClick={() => onVerHijos(nodo, padre)}
+              type="button"
+            >
+              {etiquetaHijos(nodo)}
+            </button>
+          ) : null}
+        </div>
+
+        {listaActiva ? (
+          <div className="border-t border-[#d8dfd5] px-6 py-5">
+            <p className="text-sm font-semibold text-[#607065]">
+              {listaActiva.nodo.direcciones
+                ? "Direcciones disponibles"
+                : "Dependencias disponibles"}
+            </p>
+            <div className="mt-4 grid gap-3 md:grid-cols-2">
+              {listaActiva.hijos.map((hijo) => (
+                <button
+                  className="rounded-md border border-[#d8dfd5] bg-[#f8fbf7] px-4 py-4 text-left transition hover:border-[#2f7d46] hover:bg-[#edf7ef] focus:outline-none focus:ring-2 focus:ring-[#2f7d46] focus:ring-offset-2"
+                  key={hijo.nombre}
+                  onClick={() => onAbrirOpciones(hijo, listaActiva.nodo)}
+                  type="button"
+                >
+                  <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-[#2f7d46]">
+                    {hijo.tipo}
+                  </span>
+                  <span className="mt-1 block text-sm font-bold leading-5">
+                    {hijo.nombre}
+                  </span>
+                  {obtenerHijos(hijo).length > 0 ? (
+                    <span className="mt-2 block text-xs text-[#607065]">
+                      Tiene {obtenerHijos(hijo).length} direcciones
+                    </span>
+                  ) : null}
+                </button>
+              ))}
+            </div>
+          </div>
+        ) : null}
+      </section>
+    </div>
   );
 }
 
@@ -192,16 +979,10 @@ function FichaDependencia({ dependencia, onVolver }) {
   return (
     <main className="min-h-screen bg-[#f6f8f4] text-[#17231c]">
       <header className="border-b border-[#d8dfd5] bg-white">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-          <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#2f7d46]">
-              Gobernacion de Antioquia
-            </p>
-            <h1 className="text-xl font-bold">
-              Estructura Organica Departamental
-            </h1>
-          </div>
-          <div className="hidden gap-6 text-sm font-medium text-[#405348] md:flex">
+        <nav className="relative mx-auto flex max-w-6xl items-center justify-center px-6 py-4">
+          <MenuSuperior />
+          <MarcaGobernacion />
+          <div className="absolute right-6 hidden gap-6 text-sm font-medium text-[#405348] md:flex">
             <a href="#dependencia">Dependencia</a>
             <a href="#funciones">Funciones</a>
             <a href="#contacto">Contacto</a>
@@ -217,7 +998,7 @@ function FichaDependencia({ dependencia, onVolver }) {
               onClick={onVolver}
               type="button"
             >
-              Volver al organigrama
+              Volver a la vista principal
             </button>
             <p className="mb-4 inline-flex rounded-full bg-[#e5f3e8] px-4 py-2 text-sm font-semibold text-[#216537]">
               Informacion capturada desde Forms

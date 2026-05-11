@@ -540,24 +540,69 @@ const funciones = [
 
 const creadoresProvisionales = [
   {
-    nombre: "Nombre del practicante 1",
+    nombre: "Laura Cárdenas Castrillón",
     rol: "Practicante",
-    detalle: "Informacion provisional del creador.",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
   },
   {
-    nombre: "Nombre del practicante 2",
+    nombre: "Valentina Uribe Cabas",
     rol: "Practicante",
-    detalle: "Informacion provisional del creador.",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
   },
   {
-    nombre: "Nombre del practicante 3",
+    nombre: "Isabela Osorio Ospina",
     rol: "Practicante",
-    detalle: "Informacion provisional del creador.",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
   },
   {
-    nombre: "Nombre del practicante 4",
+    nombre: "Mayra Alejandra Solarte Bedoya",
     rol: "Practicante",
-    detalle: "Informacion provisional del creador.",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
+  },
+  {
+    nombre: "Juan Manuel Torres Alvarez",
+    rol: "Practicante",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
+  },
+  {
+    nombre: "Camilo Daza Rave",
+    rol: "Practicante",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
+  },
+  {
+    nombre: "Alejandra Restrepo Mejia",
+    rol: "Practicante",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
+  },
+  {
+    nombre: "Laura Botero Ceballos",
+    rol: "Practicante",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
+  },
+  {
+    nombre: "Sindy Johana Medrano Córdoba",
+    rol: "Practicante",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
+  },
+  {
+    nombre: "Camila Ocampo Carvajal",
+    rol: "Practicante",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
+  },
+  {
+    nombre: "Juan Pablo Yepes Valencia",
+    rol: "Practicante",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
+  },
+  {
+    nombre: "Timothy Huffington Archbold",
+    rol: "Practicante",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
+  },
+  {
+    nombre: "Salome Duque Rojas",
+    rol: "Practicante",
+    detalle: "SECRETARIA GENERAL - GOBERNACION DE ANTIOQUIA",
   },
 ];
 

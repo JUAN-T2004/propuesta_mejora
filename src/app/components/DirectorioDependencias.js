@@ -640,7 +640,7 @@ export function etiquetaHijos(nodo) {
 
 export function MarcaGobernacion() {
   return (
-    <div className="flex items-center gap-6">
+    <div className="flex min-w-0 items-center gap-6">
       <Image
         alt="Gobernacion de Antioquia, Republica de Colombia"
         className="h-24 w-auto object-contain"
@@ -883,10 +883,10 @@ export function FichaDependencia({ dependencia, onVolver }) {
   return (
     <main className="min-h-screen bg-[#f6f8f4] text-[#17231c]">
       <header className="border-b border-[#d8dfd5] bg-white">
-        <nav className="relative mx-auto flex max-w-6xl items-center justify-center px-6 py-4">
+        <nav className="relative mx-auto flex max-w-6xl items-center justify-between gap-8 px-6 py-4">
           <MenuSuperior />
           <MarcaGobernacion />
-          <div className="absolute right-6 hidden gap-6 text-sm font-medium text-[#405348] md:flex">
+          <div className="hidden shrink-0 gap-6 text-sm font-medium text-[#405348] md:flex">
             <a href="#dependencia">Dependencia</a>
             <a href="#funciones">Funciones</a>
             <a href="#contacto">Contacto</a>
@@ -898,15 +898,40 @@ export function FichaDependencia({ dependencia, onVolver }) {
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div>
             <button
-              className="mb-5 rounded-md border border-[#b9c6b7] px-4 py-2 text-sm font-semibold text-[#23402c] transition hover:border-[#2f7d46] hover:text-[#2f7d46]"
+              className="mb-5 inline-flex items-center gap-2 rounded-md border border-[#b9c6b7] px-4 py-2 text-sm font-semibold text-[#23402c] transition hover:border-[#2f7d46] hover:text-[#2f7d46]"
               onClick={onVolver}
               type="button"
             >
-              Volver a la vista principal
+              <svg
+                aria-hidden="true"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  d="M3 10.75 12 3l9 7.75"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M5.5 9.5V21h13V9.5"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M9.5 21v-6h5v6"
+                  stroke="currentColor"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                />
+              </svg>
+              Inicio
             </button>
-            <p className="mb-4 inline-flex rounded-full bg-[#e5f3e8] px-4 py-2 text-sm font-semibold text-[#216537]">
-              Informacion capturada desde Forms
-            </p>
             <h2 className="max-w-3xl text-4xl font-bold leading-tight text-[#132018] md:text-6xl">
               {dependencia.nombre}
             </h2>

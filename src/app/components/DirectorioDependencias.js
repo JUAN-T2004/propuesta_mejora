@@ -640,19 +640,19 @@ export function etiquetaHijos(nodo) {
 
 export function MarcaGobernacion() {
   return (
-    <div className="flex min-w-0 items-center gap-6">
+    <div className="flex min-w-0 items-center gap-5">
       <Image
         alt="Gobernacion de Antioquia, Republica de Colombia"
-        className="h-24 w-auto object-contain"
+        className="h-20 w-auto object-contain"
         height={130}
         src="/logo-gobernacion.png"
         width={400}
       />
-      <div className="hidden sm:block">
-        <p className="text-base font-bold uppercase tracking-[0.2em] text-[#176b36]">
+      <div className="hidden border-l border-[#d8dfd5] pl-5 sm:block">
+        <p className="text-sm font-bold uppercase tracking-[0.22em] text-[#176b36]">
           Estructura Organica Departamental
         </p>
-        <h1 className="mt-1 text-2xl font-bold text-[#17231c]">
+        <h1 className="mt-1 text-2xl font-bold tracking-normal text-[#17231c]">
           Directorio institucional
         </h1>
       </div>
@@ -674,7 +674,7 @@ export function MenuSuperior() {
       <button
         aria-expanded={menuAbierto}
         aria-label="Abrir menu"
-        className="flex h-11 w-11 items-center justify-center rounded-md border border-[#d8dfd5] bg-white shadow-sm transition hover:border-[#2f7d46] hover:bg-[#edf7ef] focus:outline-none focus:ring-2 focus:ring-[#2f7d46] focus:ring-offset-2"
+        className="flex h-11 w-11 items-center justify-center rounded-md border border-[#cdd8ca] bg-white shadow-sm transition hover:border-[#2f7d46] hover:bg-[#edf7ef] focus:outline-none focus:ring-2 focus:ring-[#2f7d46] focus:ring-offset-2"
         onClick={() => setMenuAbierto((abierto) => !abierto)}
         type="button"
       >
@@ -686,7 +686,7 @@ export function MenuSuperior() {
       </button>
 
       {menuAbierto ? (
-        <div className="absolute left-0 mt-3 w-52 rounded-lg border border-[#d8dfd5] bg-white p-2 shadow-lg">
+        <div className="absolute left-0 mt-3 w-56 rounded-lg border border-[#d8dfd5] bg-white p-2 shadow-xl">
           <button
             className="w-full rounded-md px-4 py-3 text-left text-sm font-semibold text-[#17231c] transition hover:bg-[#edf7ef] hover:text-[#246b37]"
             onClick={() => abrirModal("creadores")}
@@ -718,11 +718,11 @@ function ModalMenu({ tipo, onCerrar }) {
   const esCreadores = tipo === "creadores";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 px-4 py-6">
-      <section className="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-lg bg-white shadow-2xl">
-        <div className="flex items-start justify-between gap-4 border-b border-[#d8dfd5] px-6 py-5">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0f1b14]/55 px-4 py-6 backdrop-blur-sm">
+      <section className="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-lg border border-white/60 bg-white shadow-2xl">
+        <div className="flex items-start justify-between gap-4 border-b border-[#d8dfd5] bg-[#f8faf6] px-6 py-5">
           <div>
-            <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#2f7d46]">
+            <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#2f7d46]">
               {esCreadores ? "Equipo" : "Acerca de esta pagina"}
             </p>
             <h2 className="mt-2 text-2xl font-bold">
@@ -730,7 +730,7 @@ function ModalMenu({ tipo, onCerrar }) {
             </h2>
           </div>
           <button
-            className="rounded-md border border-[#d8dfd5] px-3 py-2 text-sm font-semibold text-[#405348] transition hover:border-[#2f7d46] hover:text-[#2f7d46]"
+            className="rounded-md border border-[#cdd8ca] bg-white px-3 py-2 text-sm font-semibold text-[#405348] transition hover:border-[#2f7d46] hover:text-[#2f7d46]"
             onClick={onCerrar}
             type="button"
           >
@@ -743,10 +743,10 @@ function ModalMenu({ tipo, onCerrar }) {
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {creadoresProvisionales.map((creador) => (
                 <article
-                  className="rounded-lg border border-[#d8dfd5] bg-[#f8fbf7] p-5"
+                  className="rounded-lg border border-[#d8dfd5] bg-[#f8faf6] p-5 shadow-sm"
                   key={creador.nombre}
                 >
-                  <p className="text-sm font-semibold uppercase tracking-[0.12em] text-[#2f7d46]">
+                  <p className="text-xs font-bold uppercase tracking-[0.12em] text-[#2f7d46]">
                     {creador.rol}
                   </p>
                   <h3 className="mt-3 text-lg font-bold leading-6">
@@ -782,12 +782,12 @@ export function ModalOpciones({
   const hijos = obtenerHijos(nodo);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 px-4 py-6">
-      <section className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-lg bg-white shadow-2xl">
-        <div className="border-b border-[#d8dfd5] px-6 py-5">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0f1b14]/55 px-4 py-6 backdrop-blur-sm">
+      <section className="max-h-[90vh] w-full max-w-3xl overflow-y-auto rounded-lg border border-white/60 bg-white shadow-2xl">
+        <div className="border-b border-[#d8dfd5] bg-[#f8faf6] px-6 py-5">
           <div className="flex items-start justify-between gap-4">
             <div>
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-[#2f7d46]">
+              <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#2f7d46]">
                 {nodo.tipo}
               </p>
               <h2 className="mt-2 text-2xl font-bold leading-8">
@@ -800,7 +800,7 @@ export function ModalOpciones({
               ) : null}
             </div>
             <button
-              className="rounded-md border border-[#d8dfd5] px-3 py-2 text-sm font-semibold text-[#405348] transition hover:border-[#2f7d46] hover:text-[#2f7d46]"
+              className="rounded-md border border-[#cdd8ca] bg-white px-3 py-2 text-sm font-semibold text-[#405348] transition hover:border-[#2f7d46] hover:text-[#2f7d46]"
               onClick={onCerrar}
               type="button"
             >
@@ -811,7 +811,7 @@ export function ModalOpciones({
 
         <div className="grid gap-3 px-6 py-5 sm:grid-cols-2">
           <button
-            className="rounded-md bg-[#246b37] px-5 py-4 text-left text-sm font-semibold text-white transition hover:bg-[#1d572d]"
+            className="rounded-md bg-[#246b37] px-5 py-4 text-left text-sm font-semibold text-white shadow-sm transition hover:bg-[#1d572d]"
             onClick={() => onVerInformacion(nodo, padre)}
             type="button"
           >
@@ -819,7 +819,7 @@ export function ModalOpciones({
           </button>
           {hijos.length > 0 ? (
             <button
-              className="rounded-md border border-[#246b37] px-5 py-4 text-left text-sm font-semibold text-[#246b37] transition hover:bg-[#edf7ef]"
+              className="rounded-md border border-[#246b37] bg-white px-5 py-4 text-left text-sm font-semibold text-[#246b37] transition hover:bg-[#edf7ef]"
               onClick={() => onVerHijos(nodo, padre)}
               type="button"
             >
@@ -830,7 +830,7 @@ export function ModalOpciones({
 
         {listaActiva ? (
           <div className="border-t border-[#d8dfd5] px-6 py-5">
-            <p className="text-sm font-semibold text-[#607065]">
+            <p className="text-sm font-bold text-[#607065]">
               {listaActiva.nodo.direcciones
                 ? "Direcciones disponibles"
                 : "Dependencias disponibles"}
@@ -838,12 +838,12 @@ export function ModalOpciones({
             <div className="mt-4 grid gap-3 md:grid-cols-2">
               {listaActiva.hijos.map((hijo) => (
                 <button
-                  className="rounded-md border border-[#d8dfd5] bg-[#f8fbf7] px-4 py-4 text-left transition hover:border-[#2f7d46] hover:bg-[#edf7ef] focus:outline-none focus:ring-2 focus:ring-[#2f7d46] focus:ring-offset-2"
+                  className="rounded-md border border-[#d8dfd5] bg-[#f8faf6] px-4 py-4 text-left transition hover:-translate-y-0.5 hover:border-[#2f7d46] hover:bg-white hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[#2f7d46] focus:ring-offset-2"
                   key={hijo.nombre}
                   onClick={() => onAbrirOpciones(hijo, listaActiva.nodo)}
                   type="button"
                 >
-                  <span className="block text-xs font-semibold uppercase tracking-[0.12em] text-[#2f7d46]">
+                  <span className="block text-xs font-bold uppercase tracking-[0.12em] text-[#2f7d46]">
                     {hijo.tipo}
                   </span>
                   <span className="mt-1 block text-sm font-bold leading-5">
@@ -881,24 +881,30 @@ export function FichaDependencia({ dependencia, onVolver }) {
   ];
 
   return (
-    <main className="min-h-screen bg-[#f6f8f4] text-[#17231c]">
-      <header className="border-b border-[#d8dfd5] bg-white">
+    <main className="min-h-screen bg-[#f4f6f1] text-[#17231c]">
+      <header className="sticky top-0 z-30 border-b border-[#d8dfd5] bg-white/95 shadow-sm backdrop-blur">
         <nav className="relative mx-auto flex max-w-6xl items-center justify-between gap-8 px-6 py-4">
           <MenuSuperior />
           <MarcaGobernacion />
-          <div className="hidden shrink-0 gap-6 text-sm font-medium text-[#405348] md:flex">
-            <a href="#dependencia">Dependencia</a>
-            <a href="#funciones">Funciones</a>
-            <a href="#contacto">Contacto</a>
+          <div className="hidden shrink-0 items-center gap-2 rounded-md border border-[#d8dfd5] bg-[#f8faf6] p-1 text-sm font-semibold text-[#405348] md:flex">
+            <a className="rounded px-3 py-2 transition hover:bg-white hover:text-[#246b37]" href="#dependencia">
+              Dependencia
+            </a>
+            <a className="rounded px-3 py-2 transition hover:bg-white hover:text-[#246b37]" href="#funciones">
+              Funciones
+            </a>
+            <a className="rounded px-3 py-2 transition hover:bg-white hover:text-[#246b37]" href="#contacto">
+              Contacto
+            </a>
           </div>
         </nav>
       </header>
 
-      <section className="bg-white">
-        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-14 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+      <section className="border-b border-[#d8dfd5] bg-white">
+        <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
           <div>
             <button
-              className="mb-5 inline-flex items-center gap-2 rounded-md border border-[#b9c6b7] px-4 py-2 text-sm font-semibold text-[#23402c] transition hover:border-[#2f7d46] hover:text-[#2f7d46]"
+              className="mb-6 inline-flex items-center gap-2 rounded-md border border-[#b9c6b7] bg-white px-4 py-2 text-sm font-semibold text-[#23402c] shadow-sm transition hover:border-[#2f7d46] hover:bg-[#edf7ef] hover:text-[#2f7d46]"
               onClick={onVolver}
               type="button"
             >
@@ -932,7 +938,10 @@ export function FichaDependencia({ dependencia, onVolver }) {
               </svg>
               Inicio
             </button>
-            <h2 className="max-w-3xl text-4xl font-bold leading-tight text-[#132018] md:text-6xl">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#2f7d46]">
+              Ficha institucional
+            </p>
+            <h2 className="mt-3 max-w-3xl text-4xl font-bold leading-tight text-[#132018] md:text-6xl">
               {dependencia.nombre}
             </h2>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-[#4b5d52]">
@@ -941,17 +950,17 @@ export function FichaDependencia({ dependencia, onVolver }) {
             <div className="mt-8 flex flex-wrap gap-3">
               <a
                 href="#dependencia"
-                className="rounded-md bg-[#246b37] px-5 py-3 text-sm font-semibold text-white"
+                className="rounded-md bg-[#246b37] px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-[#1d572d]"
               >
                 Ver ficha
               </a>
             </div>
           </div>
 
-          <aside className="overflow-hidden rounded-lg border border-[#d8dfd5] bg-[#f0f5ed]">
-            <div className="h-52 bg-[linear-gradient(135deg,#2f7d46_0%,#7dbb4d_42%,#f0c34f_42%,#f0c34f_58%,#ffffff_58%,#ffffff_100%)]" />
+          <aside className="overflow-hidden rounded-lg border border-[#d8dfd5] bg-[#f8faf6] shadow-sm">
+            <div className="h-3 bg-[linear-gradient(90deg,#176b36_0%,#80a93f_50%,#e2b53f_50%,#e2b53f_100%)]" />
             <div className="p-6">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f7d46]">
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#2f7d46]">
                 Ficha institucional
               </p>
               <h3 className="mt-2 text-2xl font-bold">
@@ -962,6 +971,20 @@ export function FichaDependencia({ dependencia, onVolver }) {
                 formulario para mostrar una vista clara y ordenada de cada
                 dependencia.
               </p>
+              <div className="mt-6 grid gap-3 border-t border-[#d8dfd5] pt-5 text-sm">
+                <div className="flex items-center justify-between gap-4">
+                  <span className="font-semibold text-[#607065]">Nivel</span>
+                  <span className="font-bold text-[#17231c]">
+                    {dependencia.nivelJerarquico}
+                  </span>
+                </div>
+                <div className="flex items-center justify-between gap-4">
+                  <span className="font-semibold text-[#607065]">Impacto</span>
+                  <span className="rounded-full bg-[#e5f3e8] px-3 py-1 font-bold text-[#216537]">
+                    {dependencia.impacto}
+                  </span>
+                </div>
+              </div>
             </div>
           </aside>
         </div>
@@ -971,10 +994,10 @@ export function FichaDependencia({ dependencia, onVolver }) {
         <div className="grid gap-4 md:grid-cols-3">
           {resumen.map((item) => (
             <article
-              className="rounded-lg border border-[#d8dfd5] bg-white p-6"
+              className="rounded-lg border border-[#d8dfd5] bg-white p-6 shadow-sm"
               key={item.titulo}
             >
-              <p className="text-sm font-semibold text-[#607065]">
+              <p className="text-sm font-bold text-[#607065]">
                 {item.titulo}
               </p>
               <p className="mt-3 text-2xl font-bold text-[#246b37]">
@@ -990,7 +1013,7 @@ export function FichaDependencia({ dependencia, onVolver }) {
         id="dependencia"
       >
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f7d46]">
+          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#2f7d46]">
             Datos generales
           </p>
           <h2 className="mt-3 text-3xl font-bold">
@@ -1017,10 +1040,10 @@ export function FichaDependencia({ dependencia, onVolver }) {
         </div>
       </section>
 
-      <section className="bg-[#17231c] px-6 py-12 text-white" id="funciones">
+      <section className="bg-[#17231c] px-6 py-14 text-white" id="funciones">
         <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a8d577]">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#a8d577]">
               Funciones
             </p>
             <h2 className="mt-3 text-3xl font-bold">
@@ -1034,10 +1057,10 @@ export function FichaDependencia({ dependencia, onVolver }) {
           <div className="grid gap-4">
             {funciones.map((funcion, index) => (
               <article
-                className="rounded-lg border border-white/15 bg-white/8 p-5"
+                className="rounded-lg border border-white/15 bg-white/8 p-5 shadow-sm"
                 key={funcion}
               >
-                <p className="text-sm font-semibold text-[#a8d577]">
+                <p className="text-sm font-bold text-[#a8d577]">
                   Funcion {index + 1}
                 </p>
                 <p className="mt-2 leading-7">{funcion}</p>
@@ -1049,8 +1072,8 @@ export function FichaDependencia({ dependencia, onVolver }) {
 
       <section className="mx-auto max-w-6xl px-6 py-12">
         <div className="grid gap-4 lg:grid-cols-2">
-          <article className="rounded-lg border border-[#d8dfd5] bg-white p-6">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f7d46]">
+          <article className="rounded-lg border border-[#d8dfd5] bg-white p-6 shadow-sm">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#2f7d46]">
               Marco normativo
             </p>
             <h2 className="mt-3 text-2xl font-bold">Normativa aplicable</h2>
@@ -1058,8 +1081,8 @@ export function FichaDependencia({ dependencia, onVolver }) {
               {dependencia.marcoNormativo}
             </p>
           </article>
-          <article className="rounded-lg border border-[#d8dfd5] bg-white p-6">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f7d46]">
+          <article className="rounded-lg border border-[#d8dfd5] bg-white p-6 shadow-sm">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#2f7d46]">
               Normas complementarias
             </p>
             <h2 className="mt-3 text-2xl font-bold">Relacion normativa</h2>
@@ -1071,12 +1094,12 @@ export function FichaDependencia({ dependencia, onVolver }) {
       </section>
 
       <section
-        className="border-y border-[#d8dfd5] bg-white px-6 py-12"
+        className="border-y border-[#d8dfd5] bg-white px-6 py-14"
         id="contacto"
       >
         <div className="mx-auto grid max-w-6xl gap-8 lg:grid-cols-[0.8fr_1.2fr]">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f7d46]">
+            <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#2f7d46]">
               Responsable y contacto
             </p>
             <h2 className="mt-3 text-3xl font-bold">
@@ -1119,8 +1142,8 @@ export function FichaDependencia({ dependencia, onVolver }) {
       </section>
 
       <section className="mx-auto grid max-w-6xl gap-8 px-6 py-12 lg:grid-cols-2">
-        <article className="rounded-lg border border-[#d8dfd5] bg-white p-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f7d46]">
+        <article className="rounded-lg border border-[#d8dfd5] bg-white p-6 shadow-sm">
+          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#2f7d46]">
             PQRSD
           </p>
           <h2 className="mt-3 text-2xl font-bold">
@@ -1144,8 +1167,8 @@ export function FichaDependencia({ dependencia, onVolver }) {
           </div>
         </article>
 
-        <article className="rounded-lg border border-[#d8dfd5] bg-white p-6">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#2f7d46]">
+        <article className="rounded-lg border border-[#d8dfd5] bg-white p-6 shadow-sm">
+          <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#2f7d46]">
             Alcance
           </p>
           <h2 className="mt-3 text-2xl font-bold">
@@ -1165,8 +1188,8 @@ export function FichaDependencia({ dependencia, onVolver }) {
 
 function InfoCard({ titulo, valor }) {
   return (
-    <article className="rounded-lg border border-[#d8dfd5] bg-white p-6">
-      <p className="text-sm font-semibold text-[#607065]">{titulo}</p>
+    <article className="rounded-lg border border-[#d8dfd5] bg-white p-6 shadow-sm">
+      <p className="text-sm font-bold text-[#607065]">{titulo}</p>
       <p className="mt-3 leading-7 text-[#17231c]">{valor}</p>
     </article>
   );

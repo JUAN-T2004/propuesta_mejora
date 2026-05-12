@@ -24,16 +24,19 @@ export default function Home() {
     return crearDependencia(opcionActiva.nodo, opcionActiva.padre);
   }, [opcionActiva]);
 
-  function abrirOpciones(nodo, padre = null) {
+  function abrirOpciones(nodo, padre = null, rutaPadre = [], volverALista = null) {
+    const ruta = [...rutaPadre, nodo];
     const hijos = obtenerHijos(nodo);
 
     if (hijos.length === 0) {
-      setOpcionActiva({ nodo, padre });
+      setOpcionActiva({ nodo, padre, ruta, volverALista });
+      setModalActivo(null);
+      setListaActiva(null);
       return;
     }
 
     setListaActiva(null);
-    setModalActivo({ nodo, padre });
+    setModalActivo({ nodo, padre, ruta });
   }
 
   function cerrarModal() {
@@ -41,22 +44,64 @@ export default function Home() {
     setListaActiva(null);
   }
 
-  function verInformacion(nodo, padre = null) {
+  function verInformacion(nodo, padre = null, ruta = [nodo]) {
     setModalActivo(null);
     setListaActiva(null);
-    setOpcionActiva({ nodo, padre });
+    setOpcionActiva({ nodo, padre, ruta });
   }
 
-  function verHijos(nodo, padre = null) {
-    setListaActiva({ nodo, padre, hijos: obtenerHijos(nodo) });
+  function verHijos(nodo, padre = null, ruta = [nodo]) {
+    setListaActiva({ nodo, padre, hijos: obtenerHijos(nodo), ruta });
+  }
+
+  function volverFichaAnterior() {
+    if (opcionActiva?.volverALista) {
+      const { nodo, padre, ruta } = opcionActiva.volverALista;
+
+      setModalActivo({ nodo, padre, ruta });
+      setListaActiva({ nodo, padre, hijos: obtenerHijos(nodo), ruta });
+      return;
+    }
+
+    const rutaActual = opcionActiva?.ruta || [];
+
+    if (rutaActual.length <= 1) {
+      return;
+    }
+
+    const ruta = rutaActual.slice(0, -1);
+    const nodo = ruta[ruta.length - 1];
+    const padre = ruta.length > 1 ? ruta[ruta.length - 2] : null;
+
+    setOpcionActiva({ nodo, padre, ruta });
+  }
+
+  function irInicio() {
+    setOpcionActiva(null);
+    setModalActivo(null);
+    setListaActiva(null);
   }
 
   if (dependencia) {
     return (
-      <FichaDependencia
-        dependencia={dependencia}
-        onVolver={() => setOpcionActiva(null)}
-      />
+      <>
+        <FichaDependencia
+          puedeVolver={(opcionActiva?.ruta || []).length > 1}
+          dependencia={dependencia}
+          onInicio={irInicio}
+          onVolver={volverFichaAnterior}
+        />
+        {modalActivo ? (
+          <ModalOpciones
+            listaActiva={listaActiva}
+            modalActivo={modalActivo}
+            onAbrirOpciones={abrirOpciones}
+            onCerrar={cerrarModal}
+            onVerHijos={verHijos}
+            onVerInformacion={verInformacion}
+          />
+        ) : null}
+      </>
     );
   }
 

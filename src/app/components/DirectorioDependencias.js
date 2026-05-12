@@ -718,9 +718,9 @@ function ModalMenu({ tipo, onCerrar }) {
   const esCreadores = tipo === "creadores";
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#0f1b14]/55 px-4 py-6 backdrop-blur-sm">
-      <section className="max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-lg border border-white/60 bg-white shadow-2xl">
-        <div className="flex items-start justify-between gap-4 border-b border-[#d8dfd5] bg-[#f8faf6] px-6 py-5">
+    <div className="fixed inset-0 z-[100] bg-[#0f1b14]/55 px-4 py-6 backdrop-blur-sm">
+      <section className="mx-auto flex h-[calc(100vh-3rem)] w-full max-w-4xl flex-col overflow-hidden rounded-lg border border-white/60 bg-white shadow-2xl">
+        <div className="flex shrink-0 items-start justify-between gap-4 border-b border-[#d8dfd5] bg-[#f8faf6] px-6 py-5">
           <div>
             <p className="text-xs font-bold uppercase tracking-[0.16em] text-[#2f7d46]">
               {esCreadores ? "Equipo" : "Acerca de esta pagina"}
@@ -738,7 +738,7 @@ function ModalMenu({ tipo, onCerrar }) {
           </button>
         </div>
 
-        <div className="px-6 py-6">
+        <div className="overflow-y-auto px-6 py-6">
           {esCreadores ? (
             <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
               {creadoresProvisionales.map((creador) => (
@@ -812,7 +812,7 @@ export function ModalOpciones({
         <div className="grid gap-3 px-6 py-5 sm:grid-cols-2">
           <button
             className="rounded-md bg-[#246b37] px-5 py-4 text-left text-sm font-semibold text-white shadow-sm transition hover:bg-[#1d572d]"
-            onClick={() => onVerInformacion(nodo, padre)}
+            onClick={() => onVerInformacion(nodo, padre, modalActivo.ruta)}
             type="button"
           >
             Ver informacion
@@ -820,7 +820,7 @@ export function ModalOpciones({
           {hijos.length > 0 ? (
             <button
               className="rounded-md border border-[#246b37] bg-white px-5 py-4 text-left text-sm font-semibold text-[#246b37] transition hover:bg-[#edf7ef]"
-              onClick={() => onVerHijos(nodo, padre)}
+              onClick={() => onVerHijos(nodo, padre, modalActivo.ruta)}
               type="button"
             >
               {etiquetaHijos(nodo)}
@@ -840,7 +840,13 @@ export function ModalOpciones({
                 <button
                   className="rounded-md border border-[#d8dfd5] bg-[#f8faf6] px-4 py-4 text-left transition hover:-translate-y-0.5 hover:border-[#2f7d46] hover:bg-white hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-[#2f7d46] focus:ring-offset-2"
                   key={hijo.nombre}
-                  onClick={() => onAbrirOpciones(hijo, listaActiva.nodo)}
+                  onClick={() =>
+                    onAbrirOpciones(hijo, listaActiva.nodo, listaActiva.ruta, {
+                      nodo: listaActiva.nodo,
+                      padre: listaActiva.padre,
+                      ruta: listaActiva.ruta,
+                    })
+                  }
                   type="button"
                 >
                   <span className="block text-xs font-bold uppercase tracking-[0.12em] text-[#2f7d46]">
@@ -864,7 +870,12 @@ export function ModalOpciones({
   );
 }
 
-export function FichaDependencia({ dependencia, onVolver }) {
+export function FichaDependencia({
+  dependencia,
+  onInicio,
+  onVolver,
+  puedeVolver,
+}) {
   const resumen = [
     {
       titulo: "Nivel jerarquico",
@@ -903,41 +914,66 @@ export function FichaDependencia({ dependencia, onVolver }) {
       <section className="border-b border-[#d8dfd5] bg-white">
         <div className="mx-auto grid max-w-6xl gap-10 px-6 py-12 lg:grid-cols-[1.08fr_0.92fr] lg:items-center">
           <div>
-            <button
-              className="mb-6 inline-flex items-center gap-2 rounded-md border border-[#b9c6b7] bg-white px-4 py-2 text-sm font-semibold text-[#23402c] shadow-sm transition hover:border-[#2f7d46] hover:bg-[#edf7ef] hover:text-[#2f7d46]"
-              onClick={onVolver}
-              type="button"
-            >
-              <svg
-                aria-hidden="true"
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
+            <div className="mb-6 flex flex-wrap gap-3">
+              <button
+                className="inline-flex items-center gap-2 rounded-md border border-[#b9c6b7] bg-white px-4 py-2 text-sm font-semibold text-[#23402c] shadow-sm transition hover:border-[#2f7d46] hover:bg-[#edf7ef] hover:text-[#2f7d46]"
+                onClick={onInicio}
+                type="button"
               >
-                <path
-                  d="M3 10.75 12 3l9 7.75"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M5.5 9.5V21h13V9.5"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                />
-                <path
-                  d="M9.5 21v-6h5v6"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                />
-              </svg>
-              Inicio
-            </button>
+                <svg
+                  aria-hidden="true"
+                  className="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M3 10.75 12 3l9 7.75"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M5.5 9.5V21h13V9.5"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                  />
+                  <path
+                    d="M9.5 21v-6h5v6"
+                    stroke="currentColor"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                  />
+                </svg>
+                Inicio
+              </button>
+              {puedeVolver ? (
+                <button
+                  className="inline-flex items-center gap-2 rounded-md border border-[#b9c6b7] bg-white px-4 py-2 text-sm font-semibold text-[#23402c] shadow-sm transition hover:border-[#2f7d46] hover:bg-[#edf7ef] hover:text-[#2f7d46]"
+                  onClick={onVolver}
+                  type="button"
+                >
+                  <svg
+                    aria-hidden="true"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      d="M15 6l-6 6 6 6"
+                      stroke="currentColor"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                    />
+                  </svg>
+                  Volver
+                </button>
+              ) : null}
+            </div>
             <p className="text-sm font-bold uppercase tracking-[0.18em] text-[#2f7d46]">
               Ficha institucional
             </p>

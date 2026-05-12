@@ -718,7 +718,7 @@ function ModalMenu({ tipo, onCerrar }) {
   const esCreadores = tipo === "creadores";
 
   return (
-    <div className="fixed inset-0 z-[100] bg-[#0f1b14]/55 px-4 py-6 backdrop-blur-sm">
+    <div className="fixed inset-0 z-100 bg-[#0f1b14]/55 px-4 py-6 backdrop-blur-sm">
       <section className="mx-auto flex h-[calc(100vh-3rem)] w-full max-w-4xl flex-col overflow-hidden rounded-lg border border-white/60 bg-white shadow-2xl">
         <div className="flex shrink-0 items-start justify-between gap-4 border-b border-[#d8dfd5] bg-[#f8faf6] px-6 py-5">
           <div>
